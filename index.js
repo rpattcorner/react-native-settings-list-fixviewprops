@@ -19,6 +19,12 @@ import { ImagePropTypes, TextPropTypes, ViewPropTypes } from 'deprecated-react-n
 const ARROW_ICON = require('./img/icon-arrow-settings.png');
 
 class SettingsList extends React.Component {
+  // Per https://legacy.reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs
+  constructor (props) {
+    super(props);
+    this.settingsRef = React.createRef();
+  }
+  
   static propTypes = {
     backgroundColor: PropTypes.string,
     borderColor: PropTypes.string,
@@ -71,7 +77,9 @@ class SettingsList extends React.Component {
 
   render(){
     return (
-      <ScrollView {...this.props.scrollViewProps} ref="_scrollView">
+      // <ScrollView {...this.props.scrollViewProps} ref="_scrollView">
+        <ScrollView {...this.props.scrollViewProps} ref={this.settingsRef}>
+        <Text>Hi there</Text>
         {this._getGroups().map((group, index) => {
           return this._groupView(group, index);
         })}
